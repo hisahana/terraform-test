@@ -5,4 +5,6 @@ provider "aws" {
 
 module "common" {
   source = "../../modules/common"
+
+  name = var.name
 }
