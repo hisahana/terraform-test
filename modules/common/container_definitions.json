@@ -6,7 +6,14 @@
     "portMappings": [
       {
         "protocol": "tcp",
-        "containerPort": 80
+        "containerPort": 80,
+        "hostPort": 80
+      }
+    ],
+    "mountPoints": [
+      {
+        "containerPath": "/var/www/html/data",
+        "sourceVolume": "fargate-efs"
       }
     ]
   }

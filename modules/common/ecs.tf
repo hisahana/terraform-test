@@ -9,6 +9,13 @@ resource "aws_ecs_task_definition" "app_task" {
   memory = "512"
   network_mode = "awsvpc"
   requires_compatibilities = ["FARGATE"]
+  volume {
+    name = "fargate-efs"
+    efs_volume_configuration {
+      file_system_id = aws_efs_file_system.efs.id
+      root_directory = "/"
+    }
+  }
 }
 
 resource "aws_ecs_service" "app" {
@@ -17,7 +24,7 @@ resource "aws_ecs_service" "app" {
   task_definition = aws_ecs_task_definition.app_task.arn
   desired_count = 2
   launch_type = "FARGATE"
-  platform_version = "1.3.0"
+  platform_version = "1.4.0"
   #health_check_grace_period_seconds = 60
 
   network_configuration {
